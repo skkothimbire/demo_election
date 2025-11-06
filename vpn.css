@@ -1,0 +1,208 @@
+*{
+    margin: 0;
+    padding: 0;    
+}
+/* Base styling */
+body {
+  font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+  margin: 0;
+  background-color: #f9f9f9;
+  color: #000;
+}
+
+/* Header */
+
+
+.header {
+  background-color: #e6f0ff;
+  border-bottom: 4px solid #0057b7;
+  text-align: center;
+  padding: 15px;
+}
+.candidate-inline {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  justify-content: flex-start;
+}
+.candidate-photo {
+  width: 38px;
+  height: 38px;
+  border-radius: 40%;
+  object-fit: cover;
+  border: 1px solid #e6e6e6;
+}
+.candidate-name {
+  font-size: 1.04rem;
+  font-weight: 600;
+  color: #222;
+  white-space: nowrap;
+}
+
+/* Mobile-friendly tweak */
+@media (max-width: 600px) {
+  .candidate-photo {
+    width: 30px;
+    height: 30px;
+  }
+  .candidate-name {
+    font-size: 0.98rem;
+  }
+  .candidate-inline {
+    gap: 7px;
+  }
+}
+
+.header h1 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: #003580;
+}
+
+.orange {
+  color: #ff4c00;
+  font-weight: bold;
+}
+
+.header h3 {
+  color: #003580;
+  font-weight: 600;
+}
+
+.header p {
+  margin: 8px 0;
+  line-height: 1.4;
+}
+
+.share-btn {
+  background-color: #25D366;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* Notice line */
+.notice {
+  text-align: center;
+  background-color: #0057b7;
+  color: white;
+  font-size: 0.9rem;
+  padding: 8px;
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Table */
+table {
+  width: 95%;
+  margin: 15px auto;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+th, td {
+  border: 1px solid #b3d1ff;
+  text-align: center;
+  padding: 8px;
+}
+
+th {
+  background-color: #0057b7;
+  color: white;
+}
+
+.symbol {
+  width: 35px;
+  height: 35px;
+}
+
+
+.vote-btn:hover {
+  background-color: #0047a0;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  h1, h2, h3 {
+    font-size: 1rem;
+  }
+  table {
+    font-size: 0.9rem;
+  }
+  .symbol {
+    width: 50px;
+    height: 50px;
+  }
+  .vote-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 90px;
+  margin: 0 auto;
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #2365d6);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.25s, box-shadow 0.25s;
+  box-shadow: 0 2px 8px rgba(35,101,214,0.11);
+  letter-spacing: 1px;
+  outline: none;
+}
+  }
+
+
+.header {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.header-banner {
+  width: 95%;
+  height: auto;
+  max-width: 1000px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2px;
+}
+
+.share-btn {
+  background-color: #25D366;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 16px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  background-color: #1da851;
+}
+
+.candidate-box {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between image & name */
+}
+
+.candidate-photo {
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}

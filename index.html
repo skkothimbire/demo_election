@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="mr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>डमी मतदान यंत्र</title>
+    <link rel="stylesheet" href="vpn.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+            background: #f9f9f9;
+            color: #000;
+        }
+
+        .header {
+            background: #e6f0ff;
+            border-bottom: 1px solid #0057b7;
+            text-align: center;
+            padding: 4px 4px 4px 4px;
+        }
+
+        .header-banner {
+            display: block;
+            width: 100%;
+            max-width: 1500px;
+            height: 100%;
+            min-height: 150px;
+            margin: 4 auto 16px;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(48, 48, 48, 0.13);
+            object-fit: cover;
+            background: #dbeafe;
+        }
+
+        .notice {
+            text-align: center;
+            background: #0057b7;
+            color: #fff;
+            font-size: 1.05rem;
+            padding: 10px 8px;
+            margin: 0;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            margin: 4px;
+
+        }
+
+        table {
+            width: 97vw;
+            max-width: 1050px;;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.07);
+            font-size: 1.08rem;
+            margin: 4px auto ;
+        }
+
+        th,
+        td {
+            border: 1px solid #b3d1ff;
+            text-align: center;
+            padding: 9px 3px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #0057b7;
+            color: #fff;
+            font-size: 1.08rem;
+        }
+
+        .candidate-inline,
+        .symbol-inline {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+
+        .candidate-photo {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #e6e6e6;
+            background: #f3f3f3;
+        }
+
+        .candidate-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #222;
+            white-space: nowrap;
+        }
+
+        .symbol {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .symbol-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #222;
+            white-space: nowrap;
+        }
+
+        .vote-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            width: 90px;
+            margin: 0 auto;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #2365d6);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.25s, box-shadow 0.25s;
+            box-shadow: 0 2px 8px rgba(35, 101, 214, 0.11);
+            letter-spacing: 1px;
+            outline: none;
+        }
+
+        .vote-btn:hover {
+            background: linear-gradient(135deg, #2365d6);
+            box-shadow: 0 4px 16px rgba(35, 101, 214, 0.16);
+        }
+
+        td:empty .vote-btn {
+            background: #e6e6e6;
+            color: #bbb;
+            cursor: default;
+            box-shadow: none;
+        }
+
+        /* Card Modal Styles */
+        .result-modal {
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(50, 80, 180, 0.11);
+        }
+
+        .result-modal.active {
+            display: flex;
+        }
+
+        .result-card {
+            background: #fff;
+            border-radius: 16px;
+            max-width: 360px;
+            margin: 12px;
+            width: 95vw;
+            box-shadow: 0 12px 56px rgba(25, 45, 90, 0.22);
+            text-align: center;
+            position: relative;
+            animation: popFadeIn 0.23s;
+        }
+
+        @keyframes popFadeIn {
+            0% {
+                transform: scale(0.92);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, #246ee6 60%, #3697fa 100%);
+            padding: 18px 0 6px 0;
+            color: #fff;
+            position: relative;
+        }
+
+        .close-x {
+            position: absolute;
+            right: 14px;
+            top: 13px;
+            font-size: 1.52rem;
+            background: #fff;
+            color: #246ee6;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(36, 110, 230, 0.19);
+            transition: background .2s;
+        }
+
+        .close-x:hover {
+            background: #ffdfdc;
+            color: #e92a2a;
+        }
+
+        .card-photo {
+            width: 72px;
+            height: 72px;
+            margin: -38px auto 5px auto;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            background: #f2f6ff;
+            object-fit: cover;
+            box-shadow: 0 0 20px rgba(36, 110, 230, 0.05);
+        }
+
+        .card-headline {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-top: 2px;
+            color: #1a2972;
+        }
+
+        .card-desc {
+            font-size: 1.06rem;
+            margin: 1px 0 0 0;
+            color: #11337a;
+            font-weight: 500;
+        }
+
+        .card-seat {
+            color: #2a55a5;
+            margin: 7px 0 3px;
+            font-weight: bold;
+        }
+
+        .card-content {
+            padding: 18px 12px 0 12px;
+            color: #393939;
+            font-size: 1.07rem;
+        }
+
+        .share-btn-modal {
+            background: linear-gradient(90deg, #23bb55, #44cc82);
+            color: #fff;
+            border: none;
+            border-radius: 9px;
+            padding: 12px 0;
+            width: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px auto 16px auto;
+            box-shadow: 0 2px 14px rgba(34, 200, 104, 0.13);
+            transition: background 0.19s;
+            letter-spacing: .9px;
+        }
+
+        .share-btn-modal:hover {
+            background: linear-gradient(90deg, #14aa48, #39d170);
+        }
+
+        .whatsapp-icon {
+            margin-left: 8px;
+            font-size: 1.32em;
+            vertical-align: middle;
+        }
+
+        @media (max-width:600px) {
+            
+
+            .notice {
+                font-size: 0.97rem;
+                padding: 4px 1px;
+            }
+
+            table {
+                font-size: 0.95rem;
+                width: 99vw;
+            }
+
+            .candidate-photo,
+            .symbol {
+                width: 30px;
+                height: 30px;
+            }
+
+            .candidate-inline,
+            .symbol-inline {
+                gap: 6px;
+            }
+
+            .candidate-name,
+            .symbol-name {
+                font-size: 0.93rem;
+            }
+
+            th,
+            td {
+                font-size: 0.91rem;
+                padding: 4px 2px;
+            }
+
+            .vote-btn {
+                height: 36px;
+                width: 80px;
+                font-size: 0.97rem;
+            }
+
+            .result-card {
+                max-width: 98vw;
+            }
+        }
+
+        .result-card {
+            background: #fff;
+            border-radius: 18px;
+            max-width: 370px;
+            margin: 2vw;
+            width: 96vw;
+            box-shadow: 0 12px 36px rgba(33, 64, 152, 0.14), 0 2px 4px #bedcff33;
+            text-align: center;
+            border: 1.8px solid #e5f0fe;
+            padding-bottom: 24px;
+            animation: popFadeIn 0.23s;
+            position: relative;
+        }
+
+        @keyframes popFadeIn {
+            0% {
+                transform: scale(0.93);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .card-header-flex {
+            background: linear-gradient(90deg, #1876ea 65%, #25d9e1 105%);
+            padding: 14px 18px 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+        }
+
+        .card-title {
+            font-size: 1.09rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #fff;
+            text-align: left;
+        }
+
+        .card-subtitle {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            color: #e0f3ff;
+            margin-top: 1.6px;
+            text-align: left;
+        }
+
+        .close-x {
+            font-size: 1.45em;
+            background: #fff;
+            color: #1972e6;
+            border-radius: 50%;
+            width: 33px;
+            height: 33px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            margin-left: 14px;
+            margin-top: -5px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #39d1fc33;
+            transition: background 0.17s, color 0.17s;
+        }
+
+        .close-x:hover {
+            background: #fff3f3;
+            color: #ff4b4b;
+        }
+
+        .symbol-logo-glow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, #f1fbff 67%, #a5d7fe 100%);
+            box-shadow: 0 6px 32px #0087ff18, 0 0px 8px #08e1cc20;
+            margin: -34px auto 10px auto;
+            position: relative;
+            border: 2.5px solid #e7eefc;
+        }
+
+        .football-logo {
+            width: 85px;
+            height: 85px;
+            object-fit: cover;
+            border-radius: 50%;
+
+            box-shadow: 0 2px 10px #45b0fc22;
+
+        }
+
+        .candidate-details {
+            margin-top: 2px;
+            margin-bottom: 0;
+        }
+
+        .candidate-name-bold {
+            color: #1746a2;
+            font-size: 1.23rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: 0.6px;
+        }
+
+        .whatsapp-logo-img {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .card-success-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 1.13rem;
+            color: #22963e;
+            margin-bottom: 17px;
+            margin-top: 8px;
+        }
+
+        .success-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-text {
+            font-weight: bold;
+            font-size: 1.12rem;
+            color: #22963e;
+        }
+
+        .symbol-label-row {
+            color: #444
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="voteSound" src="demo_audio.mpeg"></audio>
+    <header class="header">
+        <div class="header-content">
+            <img src="banner.jpg" alt="डमी मतदान यंत्र बॅनर" class="header-banner">
+        </div>
+    </header>
+    <main>
+        <p class="notice">
+            मतदान दिनांक ०२ डिसेंबर २०२५ स.०७:०० ते सायं. ०६:००
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>अ.क्र</th>
+                    <th>उमेदवाराचे नाव</th>
+                    <th>निवडणूक चिन्ह</th>
+                    <th>बटन</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1.</td>
+                    <td>
+                        <div class="candidate-inline">
+                            <img src="image.png" class="candidate-photo" alt="उमेदवाराचा फोटो">
+                            <span class="candidate-name">युवराज श्रीराम भोसले</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="symbol-inline">
+                            <img class="symbol" src="image_football.png" alt="फुटबॉल चिन्ह">
+                        </div>
+                    </td>
+                    <td>
+                        <button class="vote-btn" onclick="showResultCard()">मत द्या</button>
+                    </td>
+                </tr>
+                <!-- Empty rows -->
+                <tr>
+                    <td>2.</td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="vote-btn"></button></td>
+                </tr>
+                <tr>
+                    <td>3.</td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="vote-btn"></button></td>
+                </tr>
+                <tr>
+                    <td>4.</td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="vote-btn"></button></td>
+                </tr>
+                <tr>
+                    <td>5.</td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="vote-btn"></button></td>
+                </tr>
+                <tr>
+                    <td>6.</td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="vote-btn"></button></td>
+                </tr>
+                <tr>
+                    <td>7.</td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="vote-btn"></button></td>
+                </tr>
+                <tr>
+                    <td>8.</td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="vote-btn"></button></td>
+                </tr>
+                <tr>
+                    <td>9.</td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="vote-btn"></button></td>
+                </tr>
+                <tr>
+                    <td>10.</td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="vote-btn"></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <div class="result-modal" id="resultModal">
+        <div class="result-card">
+            <div class="card-header-flex">
+                <button class="close-x" onclick="closeResultCard()">×</button>
+            </div>
+            <div class="symbol-logo-glow">
+                <img src="image.png" alt="फुटबॉल चिन्ह" class="football-logo">
+            </div>
+            <div class="candidate-details">
+                <div class="candidate-name-bold">युवराज श्रीराम भोसले</div>
+                <div class="symbol-label-row">
+                    <span class="symbol-label-title">चिन्ह :</span>
+                    <span class="symbol-label-value">फुटबॉल</span>
+                </div>
+                <div class="seat-number">क्रमांक : <b style="color:#2472e6;">1</b></div>
+            </div>
+            <hr class="card-divider">
+<div class="card-content-center card-success-box" style="display: flex; align-items: center;">
+    <svg viewBox="0 0 20 20" width="28" height="28" style="margin-right: 8px;">
+        <circle cx="10" cy="10" r="10" fill="#23bb55" />
+        <polyline points="6,10 9,13 14,7" fill="none" stroke="#fff" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <span class="success-text">तुमचे मत नोंदवले गेले आहे.</span>
+</div>
+<h4>आपण युवराज श्रीराम भोसले यांना मत दिले आहे.</h4>
+
+
+            <button class="share-btn-modal" onclick="shareWhatsApp()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="whatsapp-logo-img"
+                    alt="WhatsApp" width="24" height="24" style="vertical-align:middle;margin-right:7px;">
+                <span>शेअर करा</span>
+            </button>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Script -->
+    <script>
+        function showResultCard() {
+            var audio = document.getElementById('voteSound');
+            if (audio) { audio.currentTime = 0; audio.play(); }
+            var modal = document.getElementById('resultModal');
+            if (modal) { modal.classList.add('active'); }
+        }
+        function closeResultCard() {
+            var modal = document.getElementById('resultModal');
+            if (modal) { modal.classList.remove('active'); }
+        }
+        function shareWhatsApp() {
+            var msg = encodeURIComponent('मैंने डेमो ईवीएम पर मतदान किया, आप भी इस लिंक पर डेमो मतदान करें!');
+            var url = 'https://wa.me/?text=' + msg;
+            window.open(url, '_blank');
+        }
+        function shareWhatsApp() {
+            var msg = encodeURIComponent('मैंने डेमो ईवीएम पर मतदान किया, आप भी इस लिंक पर डेमो मतदान करें!');
+            var url = 'https://wa.me/?text=' + msg;
+            window.open(url, '_blank');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = document.getElementById('resultModal');
+            if (modal) {
+                modal.addEventListener('click', function (e) {
+                    if (e.target === this) closeResultCard();
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
