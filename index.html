@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="mr">
 
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>डमी मतदान यंत्र</title>
-    <link rel="stylesheet" href="vpn.css">
+    <link rel="stylesheet" href="vpn.css" />
     <style>
         * {
             margin: 0;
@@ -14,7 +15,7 @@
         }
 
         body {
-            font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+            font-family: "Noto Sans Devanagari", Arial, sans-serif;
             background: #f9f9f9;
             color: #000;
         }
@@ -50,18 +51,17 @@
             letter-spacing: 1px;
             border-radius: 8px;
             margin: 4px;
-
         }
 
         table {
             width: 97vw;
-            max-width: 1050px;;
+            max-width: 1050px;
             border-collapse: collapse;
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.07);
             font-size: 1.08rem;
-            margin: 4px auto ;
+            margin: 4px auto;
         }
 
         th,
@@ -163,21 +163,107 @@
             background: rgba(50, 80, 180, 0.11);
         }
 
-        .result-modal.active {
-            display: flex;
-        }
+.result-modal.active {
+  display: flex;
+}
+.result-card-new {
+  background: #fff;
+  border-radius: 18px;
+  width: 95vw;
+  max-width: 420px;
+  margin: 15px auto;
+  box-shadow: 0 12px 36px rgba(33,64,152, .13), 0 2px 4px #bedcff33;
+  text-align: center;
+  overflow: visible;
+  position: relative;
+}
+.result-card-header {
+  background: linear-gradient(90deg, #1876ea 65%, #25d9e1 105%);
+  height: 70px;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  position: relative;
+}
+.result-card-photo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0; right: 0;
+  top: 14px;
+  z-index: 2;
+}
+.result-card-photo {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  box-shadow: 0 5px 20px #1474ff11;
+  background: #fff;
+  margin: 0 auto;
+  object-fit: cover;
+}
+.close-x {
+  position: absolute;
+  right: 12px;
+  top: 11px;
+  font-size: 1.63rem;
+  background: #fff;
+  color: #246ee6;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #246ee658;
+  z-index: 3;
+  transition: background .2s;
+}
+.close-x:hover { background: #f2eafa; color: #e92a2a; }
 
-        .result-card {
-            background: #fff;
-            border-radius: 16px;
-            max-width: 360px;
-            margin: 12px;
-            width: 95vw;
-            box-shadow: 0 12px 56px rgba(25, 45, 90, 0.22);
-            text-align: center;
-            position: relative;
-            animation: popFadeIn 0.23s;
-        }
+.result-card-content-center {
+  margin-top: 44px;
+  padding: 0 16px 0 16px;
+}
+.result-card-title {
+  font-size: 1.16rem;
+  font-weight: bold;
+  color: #2365d6;
+  margin-bottom: 1px;
+  margin-top: 15px;
+}
+.result-card-subtitle {
+  font-size: 0.97rem;
+  color: #1d2530;
+  margin-bottom: 3px;
+}
+.result-card-id {
+  color: #2472e6;
+  font-size: 1.02rem;
+  margin-bottom: 5px;
+}
+.result-card-tick-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 13px 0 7px 0;
+}
+.green-bold-text {
+  font-weight: 600;
+  color: #23bb55;
+  font-size: 1rem;
+}
+.result-card-desc {
+  font-size: 1.08rem;
+  margin: 2px 0 14px 0;
+  color: #1e2d59;
+  font-weight: 600;
+}
+
 
         @keyframes popFadeIn {
             0% {
@@ -191,73 +277,6 @@
             }
         }
 
-        .card-header {
-            background: linear-gradient(90deg, #246ee6 60%, #3697fa 100%);
-            padding: 18px 0 6px 0;
-            color: #fff;
-            position: relative;
-        }
-
-        .close-x {
-            position: absolute;
-            right: 14px;
-            top: 13px;
-            font-size: 1.52rem;
-            background: #fff;
-            color: #246ee6;
-            border-radius: 50%;
-            width: 34px;
-            height: 34px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(36, 110, 230, 0.19);
-            transition: background .2s;
-        }
-
-        .close-x:hover {
-            background: #ffdfdc;
-            color: #e92a2a;
-        }
-
-        .card-photo {
-            width: 72px;
-            height: 72px;
-            margin: -38px auto 5px auto;
-            border-radius: 50%;
-            border: 4px solid #fff;
-            background: #f2f6ff;
-            object-fit: cover;
-            box-shadow: 0 0 20px rgba(36, 110, 230, 0.05);
-        }
-
-        .card-headline {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-top: 2px;
-            color: #1a2972;
-        }
-
-        .card-desc {
-            font-size: 1.06rem;
-            margin: 1px 0 0 0;
-            color: #11337a;
-            font-weight: 500;
-        }
-
-        .card-seat {
-            color: #2a55a5;
-            margin: 7px 0 3px;
-            font-weight: bold;
-        }
-
-        .card-content {
-            padding: 18px 12px 0 12px;
-            color: #393939;
-            font-size: 1.07rem;
-        }
 
         .share-btn-modal {
             background: linear-gradient(90deg, #23bb55, #44cc82);
@@ -275,7 +294,7 @@
             margin: 20px auto 16px auto;
             box-shadow: 0 2px 14px rgba(34, 200, 104, 0.13);
             transition: background 0.19s;
-            letter-spacing: .9px;
+            letter-spacing: 0.9px;
         }
 
         .share-btn-modal:hover {
@@ -288,9 +307,7 @@
             vertical-align: middle;
         }
 
-        @media (max-width:600px) {
-            
-
+        @media (max-width: 600px) {
             .notice {
                 font-size: 0.97rem;
                 padding: 4px 1px;
@@ -334,156 +351,25 @@
             }
         }
 
-        .result-card {
-            background: #fff;
-            border-radius: 18px;
-            max-width: 370px;
-            margin: 2vw;
-            width: 96vw;
-            box-shadow: 0 12px 36px rgba(33, 64, 152, 0.14), 0 2px 4px #bedcff33;
-            text-align: center;
-            border: 1.8px solid #e5f0fe;
-            padding-bottom: 24px;
-            animation: popFadeIn 0.23s;
-            position: relative;
-        }
-
-        @keyframes popFadeIn {
-            0% {
-                transform: scale(0.93);
-                opacity: 0;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .card-header-flex {
-            background: linear-gradient(90deg, #1876ea 65%, #25d9e1 105%);
-            padding: 14px 18px 12px 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-top-left-radius: 18px;
-            border-top-right-radius: 18px;
-        }
-
-        .card-title {
-            font-size: 1.09rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            color: #fff;
-            text-align: left;
-        }
-
-        .card-subtitle {
-            font-size: 0.95rem;
-            opacity: 0.95;
-            color: #e0f3ff;
-            margin-top: 1.6px;
-            text-align: left;
-        }
-
-        .close-x {
-            font-size: 1.45em;
-            background: #fff;
-            color: #1972e6;
-            border-radius: 50%;
-            width: 33px;
-            height: 33px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            margin-left: 14px;
-            margin-top: -5px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px #39d1fc33;
-            transition: background 0.17s, color 0.17s;
-        }
-
-        .close-x:hover {
-            background: #fff3f3;
-            color: #ff4b4b;
-        }
-
-        .symbol-logo-glow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 86px;
-            height: 86px;
-            border-radius: 50%;
-            background: radial-gradient(ellipse at center, #f1fbff 67%, #a5d7fe 100%);
-            box-shadow: 0 6px 32px #0087ff18, 0 0px 8px #08e1cc20;
-            margin: -34px auto 10px auto;
-            position: relative;
-            border: 2.5px solid #e7eefc;
-        }
-
-        .football-logo {
-            width: 85px;
-            height: 85px;
-            object-fit: cover;
-            border-radius: 50%;
-
-            box-shadow: 0 2px 10px #45b0fc22;
-
-        }
-
-        .candidate-details {
-            margin-top: 2px;
-            margin-bottom: 0;
-        }
-
-        .candidate-name-bold {
-            color: #1746a2;
-            font-size: 1.23rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-            letter-spacing: 0.6px;
-        }
-
-        .whatsapp-logo-img {
-            width: 24px;
-            height: 24px;
+        .vote-status-circle {
             display: inline-block;
-            vertical-align: middle;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #e53935;
+            box-shadow: 0 2px 8px #e5393522;
+            border: 2px solid #fff;
+            transition: background 0.3s;
         }
-
-        .card-success-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-weight: bold;
-            font-size: 1.13rem;
-            color: #22963e;
-            margin-bottom: 17px;
-            margin-top: 8px;
+        .vote-status-circle.voted {
+            background: #43a047;
         }
-
-        .success-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .success-text {
-            font-weight: bold;
-            font-size: 1.12rem;
-            color: #22963e;
-        }
-
-        .symbol-label-row {
-            color: #444
-        }
+        
     </style>
 </head>
 
 <body>
+
     <audio id="voteSound" src="demo_audio.mpeg"></audio>
     <header class="header">
         <div class="header-content">
@@ -508,224 +394,346 @@
                     <td>1.</td>
                     <td>
                         <div class="candidate-inline">
-                            <img src="image.png" class="candidate-photo" alt="उमेदवाराचा फोटो">
+                            <img src="image.png" class="candidate-photo" alt="उमेदवाराचा फोटो" />
                             <span class="candidate-name">युवराज श्रीराम भोसले</span>
                         </div>
                     </td>
                     <td>
                         <div class="symbol-inline">
-                            <img class="symbol" src="image_football.png" alt="फुटबॉल चिन्ह">
+                            <img class="symbol" src="image_football.png" alt="फुटबॉल चिन्ह" />
                         </div>
                     </td>
-                    <td>
-                        <button class="vote-btn" onclick="showResultCard()">बटन</button>
+                    <td style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span class="vote-status-circle" id="vote-circle-1"></span>
+                        <button class="vote-btn" id="vote-btn-1">बटन</button>
                     </td>
                 </tr>
-                <!-- Empty rows -->
+
                 <tr>
                     <td>2.</td>
                     <td></td>
                     <td></td>
-                    <td><button class="vote-btn"></button></td>
+                    <td style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span class="vote-status-circle" id="vote-circle-2"></span>
+                        <button class="vote-btn" id="vote-btn-2"></button>
+                    </td>
                 </tr>
+
                 <tr>
                     <td>3.</td>
                     <td></td>
                     <td></td>
-                    <td><button class="vote-btn"></button></td>
+                    <td style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span class="vote-status-circle" id="vote-circle-3"></span>
+                        <button class="vote-btn" id="vote-btn-3"></button>
+                    </td>
                 </tr>
+
                 <tr>
                     <td>4.</td>
                     <td></td>
                     <td></td>
-                    <td><button class="vote-btn"></button></td>
+                    <td style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span class="vote-status-circle" id="vote-circle-4"></span>
+                        <button class="vote-btn" id="vote-btn-4"></button>
+                    </td>
                 </tr>
+
                 <tr>
                     <td>5.</td>
                     <td></td>
                     <td></td>
-                    <td><button class="vote-btn"></button></td>
+                    <td style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span class="vote-status-circle" id="vote-circle-5"></span>
+                        <button class="vote-btn" id="vote-btn-5"></button>
+                    </td>
                 </tr>
+
                 <tr>
                     <td>6.</td>
                     <td></td>
                     <td></td>
-                    <td><button class="vote-btn"></button></td>
+                    <td style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span class="vote-status-circle" id="vote-circle-6"></span>
+                        <button class="vote-btn" id="vote-btn-6"></button>
+                    </td>
                 </tr>
+
                 <tr>
                     <td>7.</td>
                     <td></td>
                     <td></td>
-                    <td><button class="vote-btn"></button></td>
+                    <td style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span class="vote-status-circle" id="vote-circle-7"></span>
+                        <button class="vote-btn" id="vote-btn-7"></button>
+                    </td>
                 </tr>
+
                 <tr>
                     <td>8.</td>
                     <td></td>
                     <td></td>
-                    <td><button class="vote-btn"></button></td>
+                    <td style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span class="vote-status-circle" id="vote-circle-8"></span>
+                        <button class="vote-btn" id="vote-btn-8"></button>
+                    </td>
                 </tr>
+
                 <tr>
                     <td>9.</td>
                     <td></td>
                     <td></td>
-                    <td><button class="vote-btn"></button></td>
+                    <td style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span class="vote-status-circle" id="vote-circle-9"></span>
+                        <button class="vote-btn" id="vote-btn-9"></button>
+                    </td>
                 </tr>
+
                 <tr>
                     <td>10.</td>
                     <td></td>
                     <td></td>
-                    <td><button class="vote-btn"></button></td>
+                    <td style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span class="vote-status-circle" id="vote-circle-10"></span>
+                        <button class="vote-btn" id="vote-btn-10"></button>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </main>
 
+    <!-- New modal card style class -->
     <div class="result-modal" id="resultModal">
-        <div class="result-card">
-            <div class="card-header-flex">
-                <button class="close-x" onclick="closeResultCard()">×</button>
-            </div>
-            <div class="symbol-logo-glow">
-                <img src="image.png" alt="फुटबॉल चिन्ह" class="football-logo">
-            </div>
-            <div class="candidate-details">
-                <div class="candidate-name-bold">युवराज श्रीराम भोसले</div>
-                <div class="symbol-label-row">
-                    <span class="symbol-label-title">चिन्ह :</span>
-                    <span class="symbol-label-value">फुटबॉल</span>
-                </div>
-                <div class="seat-number">क्रमांक : <b style="color:#2472e6;">1</b></div>
-            </div>
-            <hr class="card-divider">
-<div class="card-content-center card-success-box" style="display: flex; align-items: center;">
-    <svg viewBox="0 0 20 20" width="28" height="28" style="margin-right: 8px;">
-        <circle cx="10" cy="10" r="10" fill="#23bb55" />
-        <polyline points="6,10 9,13 14,7" fill="none" stroke="#fff" stroke-width="2.2"
-            stroke-linecap="round" stroke-linejoin="round" />
-    </svg>
-    <span class="success-text">तुमचे मत नोंदवले गेले आहे.</span>
+  <div class="result-card-new"> <!-- New modal card style class -->
+    <div class="result-card-header">
+      <div class="result-card-photo-wrap">
+        <img src="image.png" alt="फोटो" class="result-card-photo" />
+      </div>
+      <button class="close-x" onclick="closeResultCard()">×</button>
+    </div>
+    <div class="result-card-content-center">
+      <div class="result-card-title">युवराज श्रीराम भोसले</div>
+      <div class="result-card-subtitle">चिन्ह : फुटबॉल</div>
+      <div class="result-card-id">क्रमांक : <b style="color:#2472e6;">1</b></div>
+      <div class="result-card-tick-row">
+        <svg viewBox="0 0 20 20" width="27" height="27">
+          <circle cx="10" cy="10" r="10" fill="#23bb55" />
+          <polyline points="6,10 9,13 14,7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span> <span class="green-bold-text">तुमचे मत नोंदवले गेले आहे.</span> </span>
+      </div>
+      <div class="result-card-desc">
+        <b>आपण युवराज श्रीराम भोसले यांना मत दिले आहे.</b>
+      </div>
+      <button class="share-btn-modal" onclick="shareWhatsApp()">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+             class="whatsapp-logo-img"
+             alt="WhatsApp"
+             width="24"
+             height="24"
+             style="vertical-align:middle;margin-right:7px;">
+        <span>शेअर करा</span>
+      </button>
+    </div>
+  </div>
 </div>
-<h4>आपण युवराज श्रीराम भोसले यांना मत दिले आहे.</h4>
 
-
-            <button class="share-btn-modal" onclick="shareWhatsApp()">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="whatsapp-logo-img"
-                    alt="WhatsApp" width="24" height="24" style="vertical-align:middle;margin-right:7px;">
-                <span>शेअर करा</span>
-            </button>
+    <div
+        style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        "
+    >
+        <div
+            id="voteCounterCard"
+            style="
+                background: #22c55e;
+                border-radius: 15px;
+                padding: 15px 45px 15px 45px;
+                display: inline-flex;
+                flex-direction: column;
+                align-items: center;
+                box-shadow: 0 4px 16px #22c55e19;
+                margin: 10px auto 10px auto;
+                min-width: 100px;
+            "
+        >
+            <div style="display: flex; align-items: center; gap: 7px">
+                <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 20 20"
+                    style="background: white; border-radius: 50%"
+                >
+                    <circle cx="10" cy="10" r="9" fill="#fff" />
+                    <polyline
+                        points="7,10 10,13 14,7"
+                        fill="none"
+                        stroke="#22c55e"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+                <span
+                    style="color: #fff; font-size: 1.12rem; font-weight: 700"
+                    >एकूण मत</span
+                >
+            </div>
+            <div
+                id="voteCount"
+                style="
+                    color: #fff;
+                    font-size: 2.15rem;
+                    font-weight: 800;
+                    margin-top: 6px;
+                    line-height: 1;
+                    text-shadow: 0 1px 0 #1f8f4c33;
+                "
+            >
+                0
+            </div>
+        </div>
+        <div
+            style="
+                width: 100vw;
+                background: #161c29;
+                padding: 14px 0 13px 0;
+                margin: 0 auto 0 auto;
+                text-align: center;
+                box-shadow: 0 -1px 8px #161c2944;
+                font-family: inherit;
+                letter-spacing: 0.5px;
+                border-bottom: 3px solid #22c55e;
+            "
+        >
+            <div style="color: #b6bed1; font-size: 1.04em">Powered By</div>
+            <div style="font-size: 1.22em; font-weight: 700; margin-top: 1px">
+                <a
+                    href="https://deployx.io"
+                    style="
+                        color: #fff;
+                        text-decoration: none;
+                        font-weight: 700;
+                        border-radius: 7px;
+                        padding: 2px 10px;
+                        display: inline-block;
+                        transition: background 0.17s, color 0.17s;
+                    "
+                    target="_blank"
+                    rel="noopener"
+                    >DeployX</a
+                >
+            </div>
         </div>
     </div>
-   <div style="display: flex; flex-direction: column; align-items: center;">
-  <div id="voteCounterCard" style="
-    background: #22c55e;
-    border-radius: 15px;
-    padding: 15px 45px 15px 45px;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 4px 16px #22c55e19;
-    margin: 10px auto 10px auto;
-    min-width: 100px;
-  ">
-    <div style="display: flex; align-items: center; gap: 7px;">
-      <svg width="22" height="22" viewBox="0 0 20 20" style="background: white; border-radius: 50%;">
-        <circle cx="10" cy="10" r="9" fill="#fff"/>
-        <polyline points="7,10 10,13 14,7" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span style="color: #fff; font-size: 1.12rem; font-weight: 700;">एकूण मत</span>
-    </div>
-    <div id="voteCount" style="
-      color: #fff;
-      font-size: 2.15rem;
-      font-weight: 800;
-      margin-top: 6px;
-      line-height: 1;
-      text-shadow: 0 1px 0 #1f8f4c33;
-    ">0</div>
-  </div>
-<div style="
-  width: 100vw;
-  background: #161c29;
-  padding: 14px 0 13px 0;
-  margin: 0 auto 0 auto;
-  text-align: center;
-  box-shadow: 0 -1px 8px #161c2944;
-  font-family: inherit;
-  letter-spacing: 0.5px;
-  border-bottom: 3px solid #22c55e;
-  ">
-  <div style="color:#b6bed1; font-size:1.04em;">Powered By</div>
-  <div style="font-size:1.22em; font-weight:700; margin-top:1px;">
-<a href="https://deployx.io"
-   style="color:#fff; text-decoration:none; font-weight:700; 
-          
-          border-radius: 7px;
-          padding: 2px 10px;
-          display: inline-block;
-          transition: background 0.17s, color 0.17s;"
-   target="_blank" rel="noopener">DeployX</a>
-  </div>
-</div>
 
-</div>
+ <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+    import {
+      getDatabase,
+      ref,
+      get,
+      set,
+      onValue,
+    } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
 
-<script>
-let voteCount = 0;
-const voteCountSpan = document.getElementById('voteCount');
+    // Firebase config (use your own)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAnItl2ZF2-DziIzY9ueimQWTcGkswUzT0",
+      authDomain: "demoelection-a03e8.firebaseapp.com",
+      projectId: "demoelection-a03e8",
+      databaseURL: "https://demoelection-a03e8-default-rtdb.asia-southeast1.firebasedatabase.app/",
+      storageBucket: "demoelection-a03e8.firebasestorage.app",
+      messagingSenderId: "611796330216",
+      appId: "1:611796330216:web:9001d55d9701c05a45cb5d",
+      measurementId: "G-K1SRE2QSDV",
+    };
 
-// Attach to all non-empty vote buttons.
-document.addEventListener('DOMContentLoaded', function () {
-    // Select all vote buttons with text
-    document.querySelectorAll('.vote-btn').forEach(btn => {
-        if (btn.textContent.trim().length > 0) {
-            btn.addEventListener('click', function () {
-                voteCount++;
-                voteCountSpan.textContent = voteCount;
-            });
-        }
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getDatabase(app);
+    const voteCountRef = ref(db, "voteCount");
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const voteCountSpan = document.getElementById("voteCount");
+
+      onValue(voteCountRef, (snapshot) => {
+        const count = snapshot.val() || 0;
+        if (voteCountSpan) voteCountSpan.textContent = count.toString();
+      });
+
+      async function incrementVoteCount() {
+        const snapshot = await get(voteCountRef);
+        const currentCount = snapshot.val() || 0;
+        await set(voteCountRef, currentCount + 1);
+      }
+
+      for (let i = 1; i <= 10; i++) {
+        const btn = document.getElementById(`vote-btn-${i}`);
+        const circle = document.getElementById(`vote-circle-${i}`);
+        if (!btn || !circle) continue;
+
+        btn.addEventListener("click", async () => {
+
+            console.log('Button ' + i + ' clicked');
+          btn.disabled = true;
+          circle.classList.add("voted");
+          await incrementVoteCount();
+
+          if (i === 1) {
+            const audio = document.getElementById("voteSound");
+            if (audio) {
+              try {
+                audio.currentTime = 0;
+                await audio.play();
+              } catch (error) {
+                // Handle autoplay block silently
+              }
+            }
+
+            setTimeout(() => {
+              window.showResultCard();
+            }, 1200);
+          }
+        });
+      }
     });
-});
-</script>
 
+    window.showResultCard = function () {
+      const modal = document.getElementById("resultModal");
+      if (modal) {
+        modal.classList.add("active");
+      }
+    };
 
+    window.closeResultCard = function () {
+      const modal = document.getElementById("resultModal");
+      if (modal) {
+        modal.classList.remove("active");
+      }
+    };
+  </script>
 
-
-
-
-
-
-    <!-- Script -->
     <script>
-        function showResultCard() {
-            var audio = document.getElementById('voteSound');
-            if (audio) { audio.currentTime = 0; audio.play(); }
-            var modal = document.getElementById('resultModal');
-            if (modal) { modal.classList.add('active'); }
-        }
-        function closeResultCard() {
-            var modal = document.getElementById('resultModal');
-            if (modal) { modal.classList.remove('active'); }
-        }
         function shareWhatsApp() {
-            var msg = encodeURIComponent('मैंने डेमो ईवीएम पर मतदान किया, आप भी इस लिंक पर डेमो मतदान करें!');
-            var url = 'https://wa.me/?text=' + msg;
-            window.open(url, '_blank');
-        }
-        function shareWhatsApp() {
-            var msg = encodeURIComponent('मैंने डेमो ईवीएम पर मतदान किया, आप भी इस लिंक पर डेमो मतदान करें!');
-            var url = 'https://wa.me/?text=' + msg;
-            window.open(url, '_blank');
-        }
+    var msg = encodeURIComponent(
+        "मी डेमो ईव्हीएमवर मतदान केले, तुम्हीही या लिंकवर डेमो मतदान करा! https://demoelection.deployx.io/"
+    );
+    var url = "https://wa.me/?text=" + msg;
+    window.open(url, "_blank");
+}
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var modal = document.getElementById('resultModal');
+        document.addEventListener("DOMContentLoaded", function () {
+            var modal = document.getElementById("resultModal");
             if (modal) {
-                modal.addEventListener('click', function (e) {
+                modal.addEventListener("click", function (e) {
                     if (e.target === this) closeResultCard();
                 });
             }
         });
     </script>
 </body>
-
 </html>
